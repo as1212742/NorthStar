@@ -1,0 +1,16 @@
+/** @format */
+
+.MuiCardContent-root:last-child {
+  padding-bottom: 0px !important;
+}
+
+.MuiCardHeader-root {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  align-items: center;
+}
+
+.MuiCardContent-root {
+  padding: 0px;
+}

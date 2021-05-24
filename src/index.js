@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+/** @format */
+
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import NorthStarThemeProvider from "aws-northstar/components/NorthStarThemeProvider";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <NorthStarThemeProvider>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </NorthStarThemeProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
