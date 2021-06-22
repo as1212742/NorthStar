@@ -24,6 +24,23 @@ const DataReducer = (state, action) => {
         },
       };
 
+    case Data.SET_TEST:
+      const newArray = [...state.Test];
+      const index = state.Test.findIndex(
+        (value) => value.id === action.payload.id
+      );
+      newArray[index].status = action.payload.value;
+      return {
+        ...state,
+        Test: newArray,
+      };
+
+    case Data.SET_SELECTION_TEST:
+      return {
+        ...state,
+        Table_Select: action.payload,
+      };
+
     case Data.RESET:
       return {
         ...state,
@@ -31,6 +48,13 @@ const DataReducer = (state, action) => {
         Region: action.payload.Region,
         EksDetails: action.payload.EksDetails,
       };
+
+    case Data.SET_HELPPANEL:
+      return {
+        ...state,
+        Helppanel: action.payload,
+      };
+
     default:
       return state;
   }

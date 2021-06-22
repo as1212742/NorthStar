@@ -54,6 +54,26 @@ export const DataProvider = (props) => {
     });
   };
 
+  const SetTest = (data) => {
+    Datadispatch({
+      type: Mapping_Type.SET_TEST,
+      payload: data,
+    });
+  };
+
+  const SetTableSelection = (data) => {
+    Datadispatch({
+      type: Mapping_Type.SET_SELECTION_TEST,
+      payload: data,
+    });
+  };
+
+  const SetHelppanel = (data) => {
+    Datadispatch({
+      type: Mapping_Type.SET_HELPPANEL,
+      payload: data,
+    });
+  };
   return (
     <DataContext.Provider
       value={{
@@ -62,6 +82,9 @@ export const DataProvider = (props) => {
         SetConfigDetails,
         SetRegion,
         Reset,
+        SetTest,
+        SetTableSelection,
+        SetHelppanel,
       }}
     >
       {props.children}

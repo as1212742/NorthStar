@@ -1,112 +1,111 @@
 /** @format */
 
-import FormSection from "aws-northstar/components/FormSection";
-import Container from "aws-northstar/layouts/Container";
-import React, { useContext, useEffect, useState } from "react";
-import Form from "aws-northstar/components/Form";
-import Button from "aws-northstar/components/Button";
-import Select from "aws-northstar/components/Select";
-import EBSstoragetypes from "../../../Data/EBSstoragetypes";
-import PROtypes from "../../../Data/ProcessorType";
-import BreadCrumbs from "../../breadcrumbs/BreadCrumbs";
-import { DataContext } from "../../../context/provider/Provider";
-import { useHistory } from "react-router-dom";
+// /** @format */
 
-const Instance_Detail_Form_2 = () => {
-  const { DataState, SetConfigDetails } = useContext(DataContext);
-  const [EBSSelectedOption, EBSSetSeletedOption] = useState();
-  const [ProcessorSelectedOption, ProcessorSetSeletedOption] = useState();
-  const [NetworkSelectedOption, NetworkSetSeletedOption] = useState();
-  const history = useHistory();
+// import FormSection from "aws-northstar/components/FormSection";
+// import Container from "aws-northstar/layouts/Container";
+// import React, { useContext, useEffect, useState } from "react";
+// import Form from "aws-northstar/components/Form";
+// import Button from "aws-northstar/components/Button";
+// import Select from "aws-northstar/components/Select";
+// import BreadCrumbs from "../../breadcrumbs/BreadCrumbs";
+// import { DataContext } from "../../../context/provider/Provider";
+// import lodash from "lodash";
+// import { useHistory } from "react-router-dom";
+// import axios from "axios";
 
-  useEffect(() => {
-    EBSSetSeletedOption(DataState.EksConfig.Storage);
-    ProcessorSetSeletedOption(DataState.EksConfig.Processor);
-    NetworkSetSeletedOption(DataState.EksConfig.Network);
-  }, [DataState.EksConfig]);
+// const Instance_Detail_Form_2 = () => {
+//   const [isProcessorSelected, setisProcessorSelected] = useState(false);
+//   const [isStorageSelected, setisStorageSelected] = useState(false);
+//   const [isNetworkSelected, setisNetworkSelected] = useState(false);
 
-  const onChangeEBS = (e) => {
-    EBSSetSeletedOption(
-      EBSstoragetypes.find((ebs) => ebs.value === e.target.value)
-    );
-    console.log(EBSSelectedOption);
-  };
+//   const [ProcessorTypes, setProcessorTypes] = useState([]);
+//   const [ProcessorSelectedOption, ProcessorSetSeletedOption] = useState();
+//   const [EBSStorageTypes, setEBSStorageTypes] = useState([]);
+//   const [EBSSelectedOption, EBSSetSeletedOption] = useState();
+//   const [OSTypes, setOSTypes] = useState([]);
+//   const [OSSelectedOption, setOSSelectedOption] = useState();
+//   const [NetworkTypes, setNetworkTypes] = useState([]);
+//   const [NetworkSelectedOption, NetworkSetSeletedOption] = useState();
+//   const [loadingEBS, setloadingEBS] = useState("notloading");
+//   const [NextStatus, setNextStatus] = useState();
+//   const [statusType, setStatusType] = useState(null);
+//   const history = useHistory();
 
-  const onChangeProcessor = (event) => {
-    ProcessorSetSeletedOption(
-      PROtypes.find((pro) => pro.value === event.target.value)
-    );
-  };
+//   console.log(EBSStorageTypes);
+//   const onNext = (e) => {
+//     e.preventDefault();
+//     history.push("/Pods/Config/Recommendation");
+//   };
 
-  const onChangeNetwork = (event) => {
-    NetworkSetSeletedOption(
-      PROtypes.find((pro) => pro.value === event.target.value)
-    );
-  };
+//   const onCancel = () => {
+//     history.push("/");
+//   };
 
-  const onNext = (e) => {
-    e.preventDefault();
+//   return (
+//     <BreadCrumbs>
+//       <Form
+//         onSubmit={(e) => onNext(e)}
+//         actions={
+//           <div>
+//             <Button variant="link" onClick={onCancel}>
+//               Cancel
+//             </Button>
+//             <Button type="submit" disabled={NextStatus} variant="primary">
+//               Next
+//             </Button>
+//           </div>
+//         }
+//       >
+//         <FormSection header="EKS Details">
+//           <Container headingVariant="h4" title="Select Processor Type">
+//             <Select
+//               placeholder="Choose an option"
+//               options={ProcessorTypes}
+//               selectedOption={ProcessorSelectedOption}
+//               onChange={onChangeProcessor}
+//               // disabled={ShiftTopic !== 0}
+//               // statusType={loadingEBS}
+//               // loadingText="Loading options"
+//             />
+//           </Container>
+//           <Container headingVariant="h4" title="Select Storage Type">
+//             <Select
+//               placeholder="Choose an option"
+//               options={EBSStorageTypes}
+//               selectedOption={EBSSelectedOption}
+//               onChange={onChangeEBS}
+//               // disabled={true}
+//               // statusType={loadingEBS}
+//               // loadingText="Loading options"
+//             />
+//           </Container>
+//           <Container headingVariant="h4" title="Select Operating System Type">
+//             <Select
+//               placeholder="Choose an option"
+//               options={OSTypes}
+//               selectedOption={OSSelectedOption}
+//               onChange={onChangeOS}
+//               // disabled={true}
+//               // statusType={loadingEBS}
+//               // loadingText="Loading options"
+//             />
+//           </Container>
+//           <Container headingVariant="h4" title="Select Network Performance">
+//             <Select
+//               placeholder="Choose an option"
+//               options={NetworkTypes}
+//               // selectedOption={NetworkSelectedOption}
+//               // onChange={onChangeNetwork}
+//               // // disabled={ShiftTopic !== 2}
+//               // statusType={statusType}
+//               // onFocus={onFocusNetwork}
+//             />
+//           </Container>
+//         </FormSection>
+//       </Form>
+//     </BreadCrumbs>
+//   );
+// };
 
-    const data = {
-      Storage: EBSSelectedOption,
-      Processor: ProcessorSelectedOption,
-      Network: NetworkSelectedOption,
-    };
-
-    SetConfigDetails(data);
-
-    history.push("/Pods/Config/Recommendation");
-  };
-
-  const onCancel = () => {
-    history.push("/");
-  };
-
-  return (
-    <BreadCrumbs>
-      <Form
-        onSubmit={(e) => onNext(e)}
-        actions={
-          <div>
-            <Button variant="link" onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button type="submit" variant="primary">
-              Next
-            </Button>
-          </div>
-        }
-      >
-        <FormSection header="EKS Details">
-          <Container headingVariant="h4" title="Select Storage Type">
-            <Select
-              placeholder="Choose an option"
-              options={EBSstoragetypes}
-              selectedOption={EBSSelectedOption}
-              onChange={onChangeEBS}
-              required
-            />
-          </Container>
-          <Container headingVariant="h4" title="Select Processor Type">
-            <Select
-              placeholder="Choose an option"
-              options={PROtypes}
-              selectedOption={ProcessorSelectedOption}
-              onChange={onChangeProcessor}
-            />
-          </Container>
-          <Container headingVariant="h4" title="Select Network Performance">
-            <Select
-              placeholder="Choose an option"
-              options={PROtypes}
-              selectedOption={NetworkSelectedOption}
-              onChange={onChangeNetwork}
-            />
-          </Container>
-        </FormSection>
-      </Form>
-    </BreadCrumbs>
-  );
-};
-
-export default Instance_Detail_Form_2;
+// export default Instance_Detail_Form_2;

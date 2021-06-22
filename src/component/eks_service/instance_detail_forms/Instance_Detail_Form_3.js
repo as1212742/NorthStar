@@ -13,10 +13,12 @@ import { useHistory } from "react-router-dom";
 
 const Instance_Detail_Form_3 = () => {
   const { DataState, SetConfigDetails } = useContext(DataContext);
+  const PodsData = JSON.parse(localStorage.getItem("Pods_Details"));
+  const ConfigData = JSON.parse(localStorage.getItem("Config_Data"));
   const history = useHistory();
 
   const onSubmit = () => {
-    history.push("/EKS/Display");
+    history.push("/table");
   };
   const onCancel = () => {
     history.push("/");
@@ -48,15 +50,15 @@ const Instance_Detail_Form_3 = () => {
                 <Stack>
                   <KeyValuePair
                     label="Number of Pods"
-                    value={DataState.EksDetails.Pods}
+                    value={PodsData.Pods}
                   ></KeyValuePair>
                   <KeyValuePair
                     label="vCPU"
-                    value={DataState.EksDetails.CPU}
+                    value={PodsData.CPU}
                   ></KeyValuePair>
                   <KeyValuePair
                     label="Processor Type"
-                    value={DataState.EksConfig.Processor.label}
+                    value={ConfigData.processor.label}
                   ></KeyValuePair>
                 </Stack>
               </Column>
@@ -64,15 +66,15 @@ const Instance_Detail_Form_3 = () => {
                 <Stack>
                   <KeyValuePair
                     label="Storage"
-                    value={DataState.EksConfig.Storage.label}
+                    value={ConfigData.storage.label}
                   ></KeyValuePair>
                   <KeyValuePair
                     label="Memory"
-                    value={DataState.EksDetails.Memory}
+                    value={PodsData.Memory}
                   ></KeyValuePair>
                   <KeyValuePair
                     label="Network"
-                    value={DataState.EksConfig.Network.label}
+                    value={ConfigData.network.label}
                   ></KeyValuePair>
                 </Stack>
               </Column>
