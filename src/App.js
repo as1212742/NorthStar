@@ -11,7 +11,6 @@ import Instance_Form_3 from "./component/eks_service/instance_detail_forms/Insta
 import EKSTable from "./component/eks_service/display_instance_detail/Main_Table";
 import Test from "./roughwork/test";
 import Loading from "./component/loading_page/Loading";
-import Final_Form from "./component/eks_service/instance_detail_forms/Instance_Detail_Form_4";
 
 const Main = () => {
   return (
@@ -28,7 +27,6 @@ const Main = () => {
               component={Instance_Form_3}
             />
             <Route exact path="/table" component={EKSTable} />
-            <Route exact path="/final" component={Final_Form} />
           </Switch>
         </Home>
       </BrowserRouter>
