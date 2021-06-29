@@ -1,21 +1,10 @@
 /** @format */
 
-import Data from "../state_mapping/State_Mapping";
+import Data from "../State-Mapping/state-mapping";
 
 const DataReducer = (state, action) => {
   switch (action.type) {
-    case Data.SET_INSTANCE_DETAILS:
-      return {
-        ...state,
-        EksDetails: action.payload,
-      };
-
-    case Data.SET_CONFIG:
-      return {
-        ...state,
-        EksConfig: action.payload,
-      };
-
+    //in use
     case Data.SET_REGION:
       return {
         ...state,
@@ -23,36 +12,59 @@ const DataReducer = (state, action) => {
           region: action.payload,
         },
       };
-
-    case Data.SET_TEST:
-      const newArray = [...state.Test];
-      const index = state.Test.findIndex(
-        (value) => value.id === action.payload.id
-      );
-      newArray[index].status = action.payload.value;
+    //in use
+    case Data.SET_OS:
       return {
         ...state,
-        Test: newArray,
+        OperatingSystem: action.payload,
       };
-
-    case Data.SET_SELECTION_TEST:
+    // in use
+    case Data.SET_DEFAULTS:
       return {
         ...state,
-        Table_Select: action.payload,
+        DefaultValue: action.payload,
       };
-
-    case Data.RESET:
+    //in use
+    case Data.SET_SELECTED_REGION:
       return {
         ...state,
-        EksConfig: action.payload.EksConfig,
-        Region: action.payload.Region,
-        EksDetails: action.payload.EksDetails,
+        selectedlocation: action.payload,
       };
-
-    case Data.SET_HELPPANEL:
+    //in use
+    case Data.SET_SELECTED_OS:
       return {
         ...state,
-        Helppanel: action.payload,
+        selectedos: action.payload,
+      };
+    //in use
+    case Data.SET_INSTANCE_DATA:
+      return {
+        ...state,
+        instancedata: action.payload,
+      };
+    //in use
+    case Data.SET_RECOMMENDATION_DETAILS:
+      return {
+        ...state,
+        RecommendationDetails: action.payload,
+      };
+    //in use
+    case Data.SET_DEFAULT_PRICING:
+      return {
+        ...state,
+        DefaultPricing: action.payload,
+      };
+    //in use
+    case Data.SET_RESERVED_INSTANCE_DATA:
+      return {
+        ...state,
+        ReservedInstanceData: action.payload,
+      };
+    //in use
+    case Data.SET_PRICING_DISPLAY_DATA:
+      return {
+        ...state,
+        pricingdisplaydata: action.payload,
       };
 
     default:
