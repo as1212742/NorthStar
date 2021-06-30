@@ -82,6 +82,13 @@ export const DataProvider = (props) => {
       payload: data,
     });
   };
+  //in use
+  const SetEstimates = (data) => {
+    Datadispatch({
+      type: Mapping_Type.SET_ESTIMATES,
+      payload: data,
+    });
+  };
 
   return (
     <DataContext.Provider
@@ -97,6 +104,7 @@ export const DataProvider = (props) => {
         SetDefaultPricing,
         SetReservedInstanceData,
         SetPricingDisplayData,
+        SetEstimates,
       }}
     >
       {props.children}

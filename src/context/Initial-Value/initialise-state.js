@@ -30,4 +30,6 @@ export default {
   ReservedInstanceData: {},
   //in use
   pricingdisplaydata: {},
+  // in use
+  estimates: getCookie("estimates-list") || [],
 };

@@ -66,7 +66,12 @@ const DataReducer = (state, action) => {
         ...state,
         pricingdisplaydata: action.payload,
       };
-
+    //in use
+    case Data.SET_ESTIMATES:
+      return {
+        ...state,
+        estimates: action.payload,
+      };
     default:
       return state;
   }

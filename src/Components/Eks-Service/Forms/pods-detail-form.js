@@ -9,7 +9,7 @@ import { HeadingStripe } from "aws-northstar";
 import { DataContext } from "../../../Context/Provider/provider";
 import Loading from "../../LoadingPage/loading";
 import Region from "../../Region/region";
-import { getCookie } from "../../../Helpers/helper";
+import { getCookie, Transform_OS_Data } from "../../../Helpers/helper";
 import { OnDemand_Instance_Details_Fetch } from "../../../Api/Eks/Instance-Details/OnDemand/ondemand";
 import { Instance_MetaData_Fetch } from "../../../Api/Eks/Instance-Details/Metadata/metadata";
 import {
@@ -36,33 +36,6 @@ const Instance_Detail_Form_1 = () => {
     SetReservedInstanceData,
   } = useContext(DataContext);
   const [IsLoading, setIsLoading] = useState(0);
-
-  //transform of os data in representational format
-  const Transform_OS_Data = (os, type) => {
-    const opsys = {
-      Windows: "Windows Server",
-      "Red Hat Enterprise Linux with HA": "Red Hat Enterprise Linux with HA",
-      Linux: "Linux",
-      RHEL: "Red Hat Enterprise Linux",
-      SUSE: "SUSE Linux Enterprise Server",
-      NA: "",
-    };
-
-    const ostype = {
-      "SQL Std": "with SQL Server Standard",
-      "SQL Web": "with SQL Server Web",
-      "SQL Ent": "with SQL Server Enterprise",
-      NA: "",
-    };
-
-    if (opsys[os] === "" && ostype[type] === "") return "";
-
-    if (opsys[os] !== "" && ostype[type] === "") return opsys[os];
-
-    if (opsys[os] === "" && ostype[type] !== "") return ostype[type];
-
-    return opsys[os] + " " + ostype[type];
-  };
 
   // filter metadata
   const Filter_Data = (metadata) => {

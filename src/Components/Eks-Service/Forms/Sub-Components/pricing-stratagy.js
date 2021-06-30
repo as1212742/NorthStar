@@ -6,6 +6,7 @@ import Container from "aws-northstar/layouts/Container";
 import { DataContext } from "../../../../Context/Provider/provider";
 import AlertPrice from "./Alerts/price";
 import React, { useContext, useEffect, useState } from "react";
+import ReservedCalculation from "./Show-Calculations/reserved";
 
 const Pricing_Stratagy = () => {
   const { DataState, SetPricingDisplayData, SetDefaultPricing } =
@@ -91,90 +92,96 @@ const Pricing_Stratagy = () => {
   };
 
   return (
-    <Container headingVariant="h2" title="Pricing strategy">
-      {Object.keys(DataState.pricingdisplaydata).length === 0 && <AlertPrice />}
-      <ColumnLayout>
-        <Heading variant="h2">Pricing model</Heading>
-        <Heading variant="h2">Reservation term</Heading>
-        <Heading variant="h2">Payment options</Heading>
-      </ColumnLayout>
-      <br></br>
-      <ColumnLayout>
-        <RadioGroup
-          items={[
-            <RadioButton
-              value="standard"
-              checked={Instance_Type === "standard"}
-              onChange={(e) => onChangeRadioInstanceType(e)}
-            >
-              <Heading variant="h5">Standard Reserved Instances</Heading>
-            </RadioButton>,
-            <RadioButton
-              value="convertible"
-              checked={Instance_Type === "convertible"}
-              onChange={(e) => onChangeRadioInstanceType(e)}
-            >
-              <Heading variant="h5"> Convertible Reserved Instances</Heading>
-            </RadioButton>,
-            <RadioButton
-              value="OnDemand"
-              checked={Instance_Type === "OnDemand"}
-              onChange={(e) => onChangeRadioInstanceType(e)}
-            >
-              <Heading variant="h5"> On-Demand Instances </Heading>
-            </RadioButton>,
-          ]}
-        />
-        <RadioGroup
-          items={[
-            <RadioButton
-              value="1yr"
-              checked={Reservation_Type === "1yr"}
-              onChange={onChangeRadioReservationType}
-              disabled={Instance_Type === "OnDemand"}
-            >
-              <Heading variant="h5">1 Year</Heading>
-            </RadioButton>,
-            <RadioButton
-              value="3yr"
-              checked={Reservation_Type === "3yr"}
-              onChange={onChangeRadioReservationType}
-              disabled={Instance_Type === "OnDemand"}
-            >
-              <Heading variant="h5">3 Year</Heading>
-            </RadioButton>,
-          ]}
-        />
-        <RadioGroup
-          items={[
-            <RadioButton
-              value="NoUpfront"
-              checked={Payment_Type === "NoUpfront"}
-              onChange={onChangeRadioPaymentType}
-              disabled={Instance_Type === "OnDemand"}
-            >
-              <Heading variant="h5">No Upfront</Heading>
-            </RadioButton>,
-            <RadioButton
-              value="PartialUpfront"
-              checked={Payment_Type === "PartialUpfront"}
-              onChange={onChangeRadioPaymentType}
-              disabled={Instance_Type === "OnDemand"}
-            >
-              <Heading variant="h5"> Partial Upfront</Heading>
-            </RadioButton>,
-            <RadioButton
-              value="AllUpfront"
-              checked={Payment_Type === "AllUpfront"}
-              onChange={onChangeRadioPaymentType}
-              disabled={Instance_Type === "OnDemand"}
-            >
-              <Heading variant="h5">All Upfront</Heading>
-            </RadioButton>,
-          ]}
-        />
-      </ColumnLayout>
-    </Container>
+    <>
+      <Container headingVariant="h2" title="Pricing strategy">
+        {Object.keys(DataState.pricingdisplaydata).length === 0 && (
+          <AlertPrice />
+        )}
+        <ColumnLayout>
+          <Heading variant="h2">Pricing model</Heading>
+          <Heading variant="h2">Reservation term</Heading>
+          <Heading variant="h2">Payment options</Heading>
+        </ColumnLayout>
+        <br></br>
+        <ColumnLayout>
+          <RadioGroup
+            items={[
+              <RadioButton
+                value="standard"
+                checked={Instance_Type === "standard"}
+                onChange={(e) => onChangeRadioInstanceType(e)}
+              >
+                <Heading variant="h5">Standard Reserved Instances</Heading>
+              </RadioButton>,
+              <RadioButton
+                value="convertible"
+                checked={Instance_Type === "convertible"}
+                onChange={(e) => onChangeRadioInstanceType(e)}
+              >
+                <Heading variant="h5"> Convertible Reserved Instances</Heading>
+              </RadioButton>,
+              <RadioButton
+                value="OnDemand"
+                checked={Instance_Type === "OnDemand"}
+                onChange={(e) => onChangeRadioInstanceType(e)}
+              >
+                <Heading variant="h5"> On-Demand Instances </Heading>
+              </RadioButton>,
+            ]}
+          />
+          <RadioGroup
+            items={[
+              <RadioButton
+                value="1yr"
+                checked={Reservation_Type === "1yr"}
+                onChange={onChangeRadioReservationType}
+                disabled={Instance_Type === "OnDemand"}
+              >
+                <Heading variant="h5">1 Year</Heading>
+              </RadioButton>,
+              <RadioButton
+                value="3yr"
+                checked={Reservation_Type === "3yr"}
+                onChange={onChangeRadioReservationType}
+                disabled={Instance_Type === "OnDemand"}
+              >
+                <Heading variant="h5">3 Year</Heading>
+              </RadioButton>,
+            ]}
+          />
+          <RadioGroup
+            items={[
+              <RadioButton
+                value="NoUpfront"
+                checked={Payment_Type === "NoUpfront"}
+                onChange={onChangeRadioPaymentType}
+                disabled={Instance_Type === "OnDemand"}
+              >
+                <Heading variant="h5">No Upfront</Heading>
+              </RadioButton>,
+              <RadioButton
+                value="PartialUpfront"
+                checked={Payment_Type === "PartialUpfront"}
+                onChange={onChangeRadioPaymentType}
+                disabled={Instance_Type === "OnDemand"}
+              >
+                <Heading variant="h5"> Partial Upfront</Heading>
+              </RadioButton>,
+              <RadioButton
+                value="AllUpfront"
+                checked={Payment_Type === "AllUpfront"}
+                onChange={onChangeRadioPaymentType}
+                disabled={Instance_Type === "OnDemand"}
+              >
+                <Heading variant="h5">All Upfront</Heading>
+              </RadioButton>,
+            ]}
+          />
+        </ColumnLayout>
+        <br />
+        <ReservedCalculation />
+      </Container>
+    </>
   );
 };
 

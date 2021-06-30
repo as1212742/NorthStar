@@ -116,7 +116,6 @@ const EC2_Details = () => {
           min_cost = total_cost_of_instance;
           result = {
             instanceName: res.values.instanceType,
-            memory: res.values.memory,
             network: res.values.networkPerformance,
             physicalProcessor: res.values.physicalProcessor,
             GPU: res.values.gpu,
@@ -130,9 +129,9 @@ const EC2_Details = () => {
             max_cpu,
             max_memory,
             max_gpu,
+            memory,
             vCPU,
             Pods,
-            memory,
             podsgpu: GPU,
             eni_ip: res.values.eni_ip,
             eni_no: res.values.eni_number,
@@ -160,7 +159,6 @@ const EC2_Details = () => {
           min_cost = total_cost_of_instance;
           result = {
             instanceName: res.values.instanceType,
-            memory: res.values.memory,
             network: res.values.networkPerformance,
             physicalProcessor: res.values.physicalProcessor,
             GPU: "NA",
