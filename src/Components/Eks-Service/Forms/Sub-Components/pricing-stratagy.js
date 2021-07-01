@@ -1,6 +1,6 @@
 /** @format */
 
-import { ColumnLayout, Heading, Inline } from "aws-northstar";
+import { ColumnLayout, Heading } from "aws-northstar";
 import RadioGroup, { RadioButton } from "aws-northstar/components/RadioGroup";
 import Container from "aws-northstar/layouts/Container";
 import { DataContext } from "../../../../Context/Provider/provider";
@@ -16,19 +16,22 @@ const Pricing_Stratagy = () => {
   const [Payment_Type, setPayment_Type] = useState("");
 
   const calculatePrice = () => {
-    console.log("i am in", DataState);
     if (
       Object.keys(DataState.RecommendationDetails).length > 0 &&
       Object.keys(DataState.ReservedInstanceData).length > 0
     ) {
       let match_data = undefined;
 
-      if (Instance_Type == "OnDemand") {
+      if (Instance_Type === "OnDemand") {
         SetPricingDisplayData(DataState.RecommendationDetails);
         return;
       }
 
-      if (Instance_Type != "" && Reservation_Type != "" && Payment_Type != "")
+      if (
+        Instance_Type !== "" &&
+        Reservation_Type !== "" &&
+        Payment_Type !== ""
+      )
         match_data =
           Reservation_Type + "#" + Payment_Type + "#" + Instance_Type;
       else
@@ -42,10 +45,9 @@ const Pricing_Stratagy = () => {
       const data = DataState.ReservedInstanceData[match_data];
 
       if (
-        data != undefined &&
+        data !== undefined &&
         DataState.RecommendationDetails.instanceName in data
       ) {
-        console.log(data[DataState.RecommendationDetails.instanceName]);
         SetPricingDisplayData(
           data[DataState.RecommendationDetails.instanceName]
         );
@@ -68,7 +70,11 @@ const Pricing_Stratagy = () => {
   };
 
   useEffect(() => {
-    if (Instance_Type != "" && Reservation_Type != "" && Payment_Type != "") {
+    if (
+      Instance_Type !== "" &&
+      Reservation_Type !== "" &&
+      Payment_Type !== ""
+    ) {
       calculatePrice();
       SetSelection();
     }

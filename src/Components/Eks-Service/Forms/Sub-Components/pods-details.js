@@ -6,30 +6,19 @@ import FormSection from "aws-northstar/components/FormSection";
 import Input from "aws-northstar/components/Input";
 import Select from "aws-northstar/components/Select";
 import React, { useContext, useEffect, useState } from "react";
-import Display_Recommendation from "./Display/recommendation";
+import DisplayRecommendation from "./Display/recommendation";
 import "./pods-details.css";
 import { DataContext } from "../../../../Context/Provider/provider";
-import {
-  Checkbox,
-  ColumnLayout,
-  Heading,
-  HeadingStripe,
-  Stack,
-} from "aws-northstar";
+import { Checkbox, ColumnLayout, Heading, Stack } from "aws-northstar";
 import AlertInstance from "./Alerts/instance";
-import Instance_Pods_Calculation from "./Show-Calculations/ondemand";
-import ExpandableSection from "aws-northstar/components/ExpandableSection";
+import InstancePodsCalculation from "./Show-Calculations/ondemand";
 import Validation from "../Sub-Components/Alerts/validation";
 
 const EC2_Details = () => {
   const [OperatingSystem, setOperatingSystem] = useState([]);
   const [SelectedOS, setSelectedOS] = useState();
-  const {
-    DataState,
-    SetDefaults,
-    SetSelectedOSData,
-    SetRecommendationDetails,
-  } = useContext(DataContext);
+  const { DataState, SetSelectedOSData, SetRecommendationDetails } =
+    useContext(DataContext);
   const [Pods, setPods] = useState("");
   const [vCPU, setvCPU] = useState("");
   const [memory, setmemory] = useState("");
@@ -47,7 +36,7 @@ const EC2_Details = () => {
     setOperatingSystem(DataState.OperatingSystem);
 
     // set selected data as first of the list in first loop
-    DataState.OperatingSystem != undefined &&
+    DataState.OperatingSystem !== undefined &&
       setSelectedOS(DataState.OperatingSystem[0]) &&
       SetSelectedOSData(DataState.OperatingSystem[0].label);
     setmemory(DataState.DefaultValue.memory);
@@ -57,11 +46,10 @@ const EC2_Details = () => {
 
   // on change of operating system selection
   useEffect(() => {
-    console.log(DataState);
     // set selected data as first of the list in first loop
     if (
-      DataState.OperatingSystem != undefined &&
-      DataState.selectedos != undefined
+      DataState.OperatingSystem !== undefined &&
+      DataState.selectedos !== undefined
     ) {
       const val = DataState.OperatingSystem.find(
         (reg) => reg.os === DataState.selectedos
@@ -91,10 +79,7 @@ const EC2_Details = () => {
       }
     }
 
-    console.log("i am here", data);
     data.map((res) => {
-      const str = res.sk;
-
       if (
         Number(vCPU) < 0 ||
         Number(memory) < 0 ||
@@ -105,7 +90,7 @@ const EC2_Details = () => {
         return;
 
       //calculation when GPU included
-      if (GPU != "" && "gpu" in res.values && Number(GPU) != 0) {
+      if (GPU !== "" && "gpu" in res.values && Number(GPU) !== 0) {
         const max_eni =
           (Number(res.values.eni_ip) - 1) * Number(res.values.eni_number) + 2;
         const max_cpu = Math.floor(Number(res.values.vcpu) / Number(vCPU));
@@ -121,7 +106,7 @@ const EC2_Details = () => {
           parseFloat(total_instance_needed) * parseFloat(res.values.price)
         );
 
-        if (pods_possible == 0) return;
+        if (pods_possible === 0) return;
         // gpu added in calculation
         if (min_cost > total_cost_of_instance) {
           min_cost = total_cost_of_instance;
@@ -150,7 +135,7 @@ const EC2_Details = () => {
         }
       }
 
-      if ((GPU == "" || Number(GPU) == 0) && !("gpu" in res.values)) {
+      if ((GPU === "" || Number(GPU) === 0) && !("gpu" in res.values)) {
         const max_eni =
           (Number(res.values.eni_ip) - 1) * Number(res.values.eni_number) + 2;
         const max_cpu = Math.floor(Number(res.values.vcpu) / Number(vCPU));
@@ -198,7 +183,7 @@ const EC2_Details = () => {
 
   // core calculation section (mostly conditions put here)
   const Calculation = () => {
-    if (Pods == "" || vCPU == "" || memory == "") {
+    if (Pods === "" || vCPU === "" || memory === "") {
       setisDetailsRight(0);
       setDisplaydata({});
       return;
@@ -207,7 +192,7 @@ const EC2_Details = () => {
     }
 
     const data = DataState.instancedata.ondemand;
-    data != undefined && CalculationOnDemandLogic(data);
+    data !== undefined && CalculationOnDemandLogic(data);
   };
 
   useEffect(() => {
@@ -236,7 +221,7 @@ const EC2_Details = () => {
   // regex validation
   const mem_cpu_valid = (e) => {
     const regex = new RegExp("^[+]?[0-9]{1,9}(?:.[0-9]{1,2})?$");
-    if (e !== "" && regex.test(e) == false) {
+    if (e !== "" && regex.test(e) === false) {
       setisValid(0);
     } else {
       setisValid(1);
@@ -246,8 +231,8 @@ const EC2_Details = () => {
   // regex validation
   const pods_valid = (e) => {
     const num = Number.isInteger(Number(e)) && e > 0;
-    console.log(Number.isInteger(e));
-    if (e !== "" && num == false) {
+
+    if (e !== "" && num === false) {
       setisValid(0);
     } else {
       setisValid(1);
@@ -312,7 +297,7 @@ const EC2_Details = () => {
             >
               <Input
                 type="text"
-                controlId="formFieldId1"
+                controlId="formFieldId2"
                 autocomplete={false}
                 disableBrowserAutocorrect={true}
                 value={Pods}
@@ -324,12 +309,12 @@ const EC2_Details = () => {
               label="vCPUs"
               description="Enter Pod vCPUs Requirement"
               hintText="Input values e.g. 10 or 0.25 "
-              controlId="formFieldId1"
+              controlId="formFieldId3"
               stretch={true}
             >
               <Input
                 type="text"
-                controlId="formFieldId1"
+                controlId="formFieldId4"
                 autocomplete={false}
                 disableBrowserAutocorrect={true}
                 value={vCPU}
@@ -342,12 +327,12 @@ const EC2_Details = () => {
               label="Memory(GiB)"
               description="Enter Pod Memory Requirement"
               hintText="Input values e.g. 10 or 0.5 GiB"
-              controlId="formFieldId1"
+              controlId="formFieldId5"
               stretch={true}
             >
               <Input
                 type="text"
-                controlId="formFieldId1"
+                controlId="formFieldId6"
                 autocomplete={false}
                 disableBrowserAutocorrect={true}
                 value={memory}
@@ -358,12 +343,12 @@ const EC2_Details = () => {
               label="GPU"
               description="Enter GPU Requirement (Optional)"
               hintText="Input values e.g. 10 not contains decimal (e.g. 10.25)"
-              controlId="formFieldId1"
+              controlId="formFieldId7"
               stretch={true}
             >
               <Input
                 type="text"
-                controlId="formFieldId1"
+                controlId="formFieldId8"
                 autocomplete={false}
                 disableBrowserAutocorrect={true}
                 value={GPU}
@@ -413,8 +398,8 @@ const EC2_Details = () => {
           </Stack>
         ) : null}
 
-        <Display_Recommendation />
-        <Instance_Pods_Calculation />
+        <DisplayRecommendation />
+        <InstancePodsCalculation />
       </FormSection>
     </Form>
   );

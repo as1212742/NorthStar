@@ -13,7 +13,7 @@ const Instance_Pods_Calculation = () => {
     <ExpandableSection header="Show Calculations">
       {Object.keys(temp).length !== 0 ? (
         <Stack spacing="xs">
-          {DataState.RecommendationDetails.GPU != "NA" ? (
+          {DataState.RecommendationDetails.GPU !== "NA" ? (
             <Text variant="span">
               Pods per instance based on GPU,{" "}
               <b>
@@ -47,7 +47,7 @@ const Instance_Pods_Calculation = () => {
               {temp.eni_ip}-1) * {temp.eni_no} + 2 = {temp.max_eni} Pods
             </b>
           </Text>
-          {DataState.RecommendationDetails.GPU != "NA" ? (
+          {DataState.RecommendationDetails.GPU !== "NA" ? (
             <Text variant="span">
               Pods per Instance based on the above 4 conditions is,
               <b>

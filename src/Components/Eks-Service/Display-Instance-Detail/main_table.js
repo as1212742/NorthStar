@@ -38,7 +38,6 @@ const Test = () => {
     [DataState.Table_Select]
   );
 
-  console.log(Data);
   const columnDefinitions = [
     {
       id: "instanceType",
@@ -102,15 +101,11 @@ const Test = () => {
 
   return (
     <>
-      {/* <HeaderTable /> */}
       <Table
         actionGroup={tableActions}
         tableTitle="Multi Select Table"
         columnDefinitions={columnDefinitions}
         items={Data}
-        // onSelectionChange={(row) => {
-        //   console.log(row);
-        // }}
         sortBy={[
           {
             id: "name",

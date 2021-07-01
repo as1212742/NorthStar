@@ -1,10 +1,10 @@
 /** @format */
 
 import React, { useContext, useEffect, useState } from "react";
-import Pods_Details from "./Sub-Components/pods-details";
+import PodsDetails from "./Sub-Components/pods-details";
 import BreadCrumbs from "../../BreadCrumbs/breadcrumbs";
-import Pricing_Stratagy from "./Sub-Components/pricing-stratagy";
-import Pricing_Display from "./Sub-Components/Display/pricing";
+import PricingStratagy from "./Sub-Components/pricing-stratagy";
+import PricingDisplay from "./Sub-Components/Display/pricing";
 import { HeadingStripe } from "aws-northstar";
 import { DataContext } from "../../../Context/Provider/provider";
 import Loading from "../../LoadingPage/loading";
@@ -109,7 +109,7 @@ const Instance_Detail_Form_1 = () => {
     let loc = DataState.selectedlocation;
     const locatn = getCookie("location");
 
-    if (loc != "") loc = locatn;
+    if (loc !== "") loc = locatn;
 
     const data = {
       location: loc,
@@ -152,9 +152,9 @@ const Instance_Detail_Form_1 = () => {
       ) : (
         <>
           <Region />
-          <Pods_Details />
-          <Pricing_Stratagy />
-          <Pricing_Display />
+          <PodsDetails />
+          <PricingStratagy />
+          <PricingDisplay />
         </>
       )}
     </BreadCrumbs>

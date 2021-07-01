@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { DataProvider } from "./Context/Provider/provider";
 import Home from "./Components/Home/homepage";
 import Routes from "./Routes/index";

@@ -1,6 +1,6 @@
 /** @format */
 
-import { Alert, Container } from "aws-northstar";
+import { Alert } from "aws-northstar";
 import React from "react";
 
 const Validation = () => {

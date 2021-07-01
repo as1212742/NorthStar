@@ -8,7 +8,6 @@ import {
   Grid,
   Heading,
   Inline,
-  Input,
   Text,
 } from "aws-northstar";
 import { DataContext } from "../../../../Context/Provider/provider";
@@ -24,7 +23,7 @@ const AddedEstimates = () => {
   const { DataState, SetEstimates } = useContext(DataContext);
 
   useEffect(() => {
-    if (getCookie("estimates-list") != "") {
+    if (getCookie("estimates-list") !== "") {
       setdata(JSON.parse(getCookie("estimates-list")));
     } else {
       setdata([]);
@@ -37,7 +36,6 @@ const AddedEstimates = () => {
     SetEstimates(temp);
     setdata(temp);
   };
-  console.log(DataState);
 
   return (
     <>
@@ -107,7 +105,7 @@ const AddedEstimates = () => {
                       Pods Memory: <b>{est.recommendationDetails.memory}</b>
                     </Text>
 
-                    {est.recommendationDetails.GPU != "NA" ? (
+                    {est.recommendationDetails.GPU !== "NA" ? (
                       <Text>
                         Pods GPU: <b>{est.recommendationDetails.GPU}</b>
                       </Text>

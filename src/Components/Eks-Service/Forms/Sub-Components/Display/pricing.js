@@ -90,7 +90,7 @@ const Pricing_Display = () => {
       DefaultPricing: DefaultPricing,
     };
 
-    if (arr == "") {
+    if (arr === "") {
       const temp = [];
       temp.push(obj);
       SetEstimates(temp);

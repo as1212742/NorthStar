@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Context/Provider/provider";
 import Button from "aws-northstar/components/Button";
 import { useHistory } from "react-router-dom";
-import { getCookie, setCookie } from "../../Helpers/helper";
+import { setCookie } from "../../Helpers/helper";
 
 const DropdownHeader = () => {
   const history = useHistory();
@@ -18,7 +18,7 @@ const DropdownHeader = () => {
   const Setlocation = () => {
     //sets your selected region either from cookie or directly
     const loc = DataState.selectedlocation;
-    if (DataState.Region.region != undefined && loc != "") {
+    if (DataState.Region.region !== undefined && loc !== "") {
       const val = DataState.Region.region.find((reg) => reg.label === loc);
       setSeletedOption(val);
       SetSelectedRegion(val.label);

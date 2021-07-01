@@ -1,6 +1,6 @@
 /** @format */
 
-import { Container, Grid, Heading, Inline } from "aws-northstar";
+import { Container, Grid, Heading } from "aws-northstar";
 import React, { useContext, useEffect, useState } from "react";
 import { getCookie } from "../../../../Helpers/helper";
 import { DataContext } from "../../../../Context/Provider/provider";
@@ -40,11 +40,11 @@ const Totalestimate = () => {
   };
 
   useEffect(() => {
-    data != undefined && CalculateCost();
+    data !== undefined && CalculateCost();
   }, [data]);
 
   useEffect(() => {
-    if (getCookie("estimates-list") != "") {
+    if (getCookie("estimates-list") !== "") {
       setdata(JSON.parse(getCookie("estimates-list")));
     } else {
       setdata([]);

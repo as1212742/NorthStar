@@ -1,6 +1,5 @@
 /** @format */
 
-import Container from "aws-northstar/layouts/Container";
 import Button from "aws-northstar/components/Button";
 import Inline from "aws-northstar/layouts/Inline";
 import { useHistory } from "react-router-dom";
@@ -11,7 +10,7 @@ import { DataContext } from "../../../../Context/Provider/provider";
 
 const Heading = () => {
   const history = useHistory();
-  const { DataState, SetEstimates } = useContext(DataContext);
+  const { SetEstimates } = useContext(DataContext);
 
   const onClearEstimate = () => {
     delete_cookie("estimates-list");
