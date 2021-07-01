@@ -19,6 +19,7 @@ import {
 import AlertInstance from "./Alerts/instance";
 import Instance_Pods_Calculation from "./Show-Calculations/ondemand";
 import ExpandableSection from "aws-northstar/components/ExpandableSection";
+import Validation from "../Sub-Components/Alerts/validation";
 
 const EC2_Details = () => {
   const [OperatingSystem, setOperatingSystem] = useState([]);
@@ -38,6 +39,7 @@ const EC2_Details = () => {
   const [maxInstancevCPU, setmaxInstancevCPU] = useState("");
   const [maxInstanceMemory, setmaxInstanceMemory] = useState("");
   const [onChangeCheckBox, setonChangeCheckBox] = useState(0);
+  const [isValid, setisValid] = useState(1);
 
   // on page reload
   useEffect(() => {
@@ -74,7 +76,7 @@ const EC2_Details = () => {
     let result = {};
 
     if (onChangeCheckBox) {
-      if (maxInstancevCPU !== "") {
+      if (maxInstancevCPU !== "" && maxInstancevCPU) {
         data = data.filter(
           (res) => Number(res.values.vcpu) <= Number(maxInstancevCPU)
         );
@@ -93,8 +95,17 @@ const EC2_Details = () => {
     data.map((res) => {
       const str = res.sk;
 
+      if (
+        Number(vCPU) < 0 ||
+        Number(memory) < 0 ||
+        Number(Pods) < 0 ||
+        Number(GPU) < 0 ||
+        !(Number.isInteger(Number(Pods)) && Number(Pods) > 0)
+      )
+        return;
+
       //calculation when GPU included
-      if (GPU != "" && "gpu" in res.values) {
+      if (GPU != "" && "gpu" in res.values && Number(GPU) != 0) {
         const max_eni =
           (Number(res.values.eni_ip) - 1) * Number(res.values.eni_number) + 2;
         const max_cpu = Math.floor(Number(res.values.vcpu) / Number(vCPU));
@@ -139,7 +150,7 @@ const EC2_Details = () => {
         }
       }
 
-      if (GPU == "" && !("gpu" in res.values)) {
+      if ((GPU == "" || Number(GPU) == 0) && !("gpu" in res.values)) {
         const max_eni =
           (Number(res.values.eni_ip) - 1) * Number(res.values.eni_number) + 2;
         const max_cpu = Math.floor(Number(res.values.vcpu) / Number(vCPU));
@@ -222,20 +233,45 @@ const EC2_Details = () => {
     SetSelectedOSData(val.os);
   };
 
+  // regex validation
+  const mem_cpu_valid = (e) => {
+    const regex = new RegExp("^[+]?[0-9]{1,9}(?:.[0-9]{1,2})?$");
+    if (e !== "" && regex.test(e) == false) {
+      setisValid(0);
+    } else {
+      setisValid(1);
+    }
+  };
+
+  // regex validation
+  const pods_valid = (e) => {
+    const num = Number.isInteger(Number(e)) && e > 0;
+    console.log(Number.isInteger(e));
+    if (e !== "" && num == false) {
+      setisValid(0);
+    } else {
+      setisValid(1);
+    }
+  };
+
   const OnChangePods = (e) => {
     setPods(e);
+    pods_valid(e);
   };
 
   const OnChangevCPU = (e) => {
     setvCPU(e);
+    mem_cpu_valid(e);
   };
 
   const OnChangeMemory = (e) => {
     setmemory(e);
+    mem_cpu_valid(e);
   };
 
   const OnChangeGPU = (e) => {
     setGPU(e);
+    mem_cpu_valid(e);
   };
 
   const OnChangeMaxInstancevCPU = (e) => {
@@ -263,7 +299,8 @@ const EC2_Details = () => {
             onChange={onChangeOS}
           />
         </FormField>
-        {isDetailsRight ? null : <AlertInstance />}
+        {isDetailsRight ? isValid ? null : <Validation /> : <AlertInstance />}
+
         <Stack>
           <ColumnLayout>
             <FormField
